@@ -38,6 +38,150 @@ Here are two examples utilizing various configuration options:
     -   [Time Server Error](#time-server-error)
 -   [Licensing](#licensing)
 
+## Customizing and Keeping Up-to-Date with the Original Project
+
+This project is a fork of [lmarzen/esp32-weather-epd](https://github.com/lmarzen/esp32-weather-epd).  This section explains how to customize your forked version and how to merge in updates from the original repository.
+
+**1. Fork the Repository:**
+
+*   Visit the [lmarzen/esp32-weather-epd](https://github.com/lmarzen/esp32-weather-epd) repository.
+*   Click the "Fork" button in the top-right corner to create a copy of the repository under your GitHub account.
+
+**2. Clone Your Fork:**
+
+*   Open a terminal or command prompt.
+*   Navigate to the directory where you want to store your project.
+*   Clone your forked repository using `git`:
+
+    ```bash
+    git clone https://github.com/<your-username>/esp32-weather-epd.git
+    cd esp32-weather-epd
+    ```
+
+    (Replace `<your-username>` with your GitHub username.)
+
+**3. Add the Original Repository as an "Upstream" Remote:**
+
+*   This step allows you to fetch updates from the original repository.
+
+    ```bash
+    git remote add upstream https://github.com/lmarzen/esp32-weather-epd.git
+    ```
+
+*   Verify that the remotes are configured correctly:
+
+    ```bash
+    git remote -v
+    ```
+
+    You should see output similar to this:
+
+    ```
+    origin  https://github.com/<your-username>/esp32-weather-epd.git (fetch)
+    origin  https://github.com/<your-username>/esp32-weather-epd.git (push)
+    upstream        https://github.com/lmarzen/esp32-weather-epd.git (fetch)
+    upstream        https://github.com/lmarzen/esp32-weather-epd.git (push)
+    ```
+
+**4. Create a Branch for Your Modifications:**
+
+*   Avoid making direct changes to the `main` branch.  Create a new branch for your customizations.
+
+    ```bash
+    git checkout -b my-feature-branch
+    ```
+
+    (Replace `my-feature-branch` with a descriptive name for your branch, e.g., `add-display-rotation`, `customize-weather-icons`.)
+
+**5. Make Your Modifications:**
+
+*   Edit the code in your `my-feature-branch`.  Add your custom features, fix bugs, or change the behavior of the original project to fit your requirements.
+
+**6. Commit Your Changes:**
+
+*   After making changes, stage them:
+
+    ```bash
+    git add .  # Or git add <specific_file> if you only want to stage certain files
+    ```
+
+*   Commit your changes with a descriptive message:
+
+    ```bash
+    git commit -m "Add display rotation functionality"
+    ```
+
+**7. Push Your Branch to Your Fork:**
+
+*   Push your branch to your forked repository on GitHub:
+
+    ```bash
+    git push origin my-feature-branch
+    ```
+
+**8. Keeping Up-to-Date with the Original Repository (Upstream):**
+
+*   Periodically, you'll want to check for updates from the original `lmarzen/esp32-weather-epd` repository.
+
+    *   **Fetch the latest changes from upstream:**
+
+        ```bash
+        git fetch upstream
+        ```
+
+    *   **Merge or Rebase the upstream changes into your branch:**
+
+        Choose **one** of the following methods:
+
+        *   **Merge (Simpler, Preserves History):**
+
+            ```bash
+            git checkout my-feature-branch  # Make sure you're on your branch
+            git merge upstream/main
+            ```
+
+        *   **Rebase (Cleaner History, Use with Caution on Shared Branches):**
+
+            ```bash
+            git checkout my-feature-branch
+            git rebase upstream/main
+            ```
+            *Rebasing rewrites your branch's history by reapplying your commits on top of the latest `upstream/main`. Use this with caution if you have already pushed your branch to your remote repository and others are collaborating on it.*
+
+    *   **Resolve any conflicts:** If there are conflicts between your changes and the upstream changes, Git will mark them in the affected files.  You'll need to manually edit those files to resolve the conflicts, then `git add` the resolved files and `git commit` (if merging) or `git rebase --continue` (if rebasing).
+
+    *   **Push the updated branch to your fork:**
+
+        ```bash
+        git push origin my-feature-branch
+        ```
+
+**Best Practices:**
+
+*   **Descriptive Commit Messages:**  Write clear and descriptive commit messages to explain the purpose of each change.
+*   **Regularly Update:**  Fetch and merge/rebase from upstream frequently to minimize the risk of large, difficult-to-resolve conflicts.
+*   **Testing:**  Thoroughly test your changes after merging/rebasing to ensure they work as expected and haven't introduced any regressions.
+
+**Example Scenario:**
+
+Let's say you want to add the ability to rotate the display by 90 degrees.
+
+1.  **Fork** and **Clone** the repository as described above.
+2.  **Add Upstream** as described above.
+3.  **Create a branch:** `git checkout -b add-display-rotation`
+4.  **Modify the code:** (Implement the display rotation logic)
+5.  **Commit your changes:** `git add .` then `git commit -m "Add 90-degree display rotation option"`
+6.  **Push your branch:** `git push origin add-display-rotation`
+
+Later, if the original `esp32-weather-epd` project receives an update:
+
+1.  **Fetch upstream:** `git fetch upstream`
+2.  **Merge/Rebase:** `git checkout add-display-rotation` then `git rebase upstream/main` or `git merge upstream/main`
+3.  **Resolve conflicts (if any):**  If the upstream changes conflict with your rotation code, you'll need to fix them.
+4.  **Test:** Make sure the rotation still works correctly after the merge/rebase.
+5.  **Push:** `git push origin add-display-rotation`
+
+This workflow enables you to customize and enhance the `esp32-weather-epd` project while maintaining the ability to integrate improvements and bug fixes from the original repository.
 
 ## Setup Guide
 
