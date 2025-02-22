@@ -44,9 +44,39 @@ const uint8_t PIN_BME_PWR =  4;   // Irrelevant if directly connected to 3.3V
 const uint8_t BME_ADDRESS = 0x76; // If sensor does not work, try 0x77
 
 // WIFI
-const char *WIFI_SSID     = "ssid";
-const char *WIFI_PASSWORD = "password";
+const char *WIFI_SSID     = "Atlantis";
+const char *WIFI_PASSWORD = "nYPpxLv3nDTXaAKXjjfB";
 const unsigned long WIFI_TIMEOUT = 10000; // ms, WiFi connection timeout.
+
+/**
+ * Base URL for the Atlantis API.
+ *
+ * This defines the host address of your Atlantis API server.
+ * It should include the protocol (e.g., "http://" or "https://") and
+ * the domain name or IP address.  Do *not* include a trailing slash.
+ *
+ */
+const String ATLANTIS_ENDPOINT = "your_atlantis_endpoint";
+
+/**
+ * Port number for the Atlantis API.
+ *
+ * This defines the port number on which the Atlantis API server is listening.
+ * Common values are 80 for HTTP and 443 for HTTPS.
+ *
+ */
+const unsigned ATLANTIS_PORT = 80; // or 443 if HTTPS
+
+/**
+ * Endpoint for retrieving DHW (Domestic Hot Water) data.
+ *
+ * This defines the path to the specific API endpoint that provides
+ * the hot water temperature and remaining minutes of hot water.
+ * This path is *relative* to the `ATLANTIS_ENDPOINT`.  It *must*
+ * include a leading slash.
+ *
+ */
+const String ATLANTIS_DHW_ENDPOINT = "/path/to/dhw/data";
 
 // HTTP
 // The following errors are likely the result of insuffient http client tcp 
@@ -58,7 +88,7 @@ const unsigned HTTP_CLIENT_TCP_TIMEOUT = 10000; // ms
 
 // OPENWEATHERMAP API
 // OpenWeatherMap API key, https://openweathermap.org/
-const String OWM_APIKEY   = "abcdefghijklmnopqrstuvwxyz012345";
+const String OWM_APIKEY   = "734064d114b2276bfeb149e380d209b1";
 const String OWM_ENDPOINT = "api.openweathermap.org";
 // OpenWeatherMap One Call 2.5 API is deprecated for all new free users
 // (accounts created after Summer 2022).

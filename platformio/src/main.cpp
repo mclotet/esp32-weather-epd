@@ -40,6 +40,7 @@
 // too large to allocate locally on stack
 static owm_resp_onecall_t       owm_onecall;
 static owm_resp_air_pollution_t owm_air_pollution;
+static atlantis_dhw_t           atlantis_dhw;
 
 Preferences prefs;
 
@@ -271,6 +272,21 @@ void setup()
   {
     killWiFi();
     statusStr = "Air Pollution API";
+    tmpStr = String(rxStatus, DEC) + ": " + getHttpResponsePhrase(rxStatus);
+    initDisplay();
+    do
+    {
+      drawError(wi_cloud_down_196x196, statusStr, tmpStr);
+    } while (display.nextPage());
+    powerOffDisplay();
+    beginDeepSleep(startTime, &timeInfo);
+  }
+  // TODO: Request data from Atlantis DHW API
+  rxStatus = getAtlantisDHW(client, atlantis_dhw);
+  if (rxStatus != HTTP_CODE_OK)
+  {
+    killWiFi();
+    statusStr = "DHW API";
     tmpStr = String(rxStatus, DEC) + ": " + getHttpResponsePhrase(rxStatus);
     initDisplay();
     do
