@@ -219,3 +219,12 @@ DeserializationError deserializeAirQuality(WiFiClient &json,
 
 #endif
 
+/*
+ * Domestic Hot Water data
+ */
+typedef struct atlantis_dhw_t
+{
+  float   temperature;  // Hot water temperature (e.g., in Celsius or Fahrenheit)
+  int     minutes_left; // Estimated minutes of hot water remaining
+  bool    available; // True if hot water data is valid, false otherwise
+} owm_dhw_t;
