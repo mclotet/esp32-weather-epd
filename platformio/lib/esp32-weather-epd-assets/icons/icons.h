@@ -1089,6 +1089,9 @@ constexpr const unsigned char* getBitmap(icon_name_t icon, size_t size)
     case 128: return bath_and_shower_128x128;
     case 160: return bath_and_shower_160x160;
     case 196: return bath_and_shower_196x196;
+    default:
+      return nullptr;
+    }
   case battery_0_bar_0deg:
     switch (size) {
     case 16: return battery_0_bar_0deg_16x16;
