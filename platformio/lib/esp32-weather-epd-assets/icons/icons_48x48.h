@@ -1,6 +1,7 @@
 #ifndef __ICONS_48x48_H__
 #define __ICONS_48x48_H__
 #include "48x48/air_filter_48x48.h"
+#include "48x48/bath_and_shower_48x48.h"
 #include "48x48/battery_0_bar_0deg_48x48.h"
 #include "48x48/battery_0_bar_180deg_48x48.h"
 #include "48x48/battery_0_bar_270deg_48x48.h"

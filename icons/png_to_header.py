@@ -47,6 +47,11 @@ except NameError:
     print("Error: outputfile is a required parameter. See usage -h")
     exit()
 
+if (outputfile.endswith('.h') == False):
+    outputfile += ".h"
+print("Outputfile: "+ str(outputfile))
+
+
 src_image = Image.open(inputfile)
 # Converts the image to grayscale
 src_g = src_image.convert('L')

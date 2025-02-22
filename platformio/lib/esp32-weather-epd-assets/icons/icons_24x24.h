@@ -1,6 +1,7 @@
 #ifndef __ICONS_24x24_H__
 #define __ICONS_24x24_H__
 #include "24x24/air_filter_24x24.h"
+#include "24x24/bath_and_shower_24x24.h"
 #include "24x24/battery_0_bar_0deg_24x24.h"
 #include "24x24/battery_0_bar_180deg_24x24.h"
 #include "24x24/battery_0_bar_270deg_24x24.h"

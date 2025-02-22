@@ -1,6 +1,7 @@
 #ifndef __ICONS_64x64_H__
 #define __ICONS_64x64_H__
 #include "64x64/air_filter_64x64.h"
+#include "64x64/bath_and_shower_64x64.h"
 #include "64x64/battery_0_bar_0deg_64x64.h"
 #include "64x64/battery_0_bar_180deg_64x64.h"
 #include "64x64/battery_0_bar_270deg_64x64.h"

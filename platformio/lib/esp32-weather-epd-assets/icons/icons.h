@@ -17,6 +17,7 @@
 
 typedef enum icon_name {
   air_filter,
+  bath_and_shower,
   battery_0_bar_0deg,
   battery_0_bar_180deg,
   battery_0_bar_270deg,
@@ -1077,6 +1078,17 @@ constexpr const unsigned char* getBitmap(icon_name_t icon, size_t size)
     default:
       return nullptr;
     }
+  case bath_and_shower:
+    switch (size) {
+    case 16: return bath_and_shower_16x16;
+    case 24: return bath_and_shower_24x24;
+    case 32: return bath_and_shower_32x32;
+    case 48: return bath_and_shower_48x48;
+    case 64: return bath_and_shower_64x64;
+    case 96: return bath_and_shower_96x96;
+    case 128: return bath_and_shower_128x128;
+    case 160: return bath_and_shower_160x160;
+    case 196: return bath_and_shower_196x196;
   case battery_0_bar_0deg:
     switch (size) {
     case 16: return battery_0_bar_0deg_16x16;

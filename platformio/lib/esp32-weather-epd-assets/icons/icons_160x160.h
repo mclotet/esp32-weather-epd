@@ -1,6 +1,7 @@
 #ifndef __ICONS_160x160_H__
 #define __ICONS_160x160_H__
 #include "160x160/air_filter_160x160.h"
+#include "160x160/bath_and_shower_160x160.h"
 #include "160x160/battery_0_bar_0deg_160x160.h"
 #include "160x160/battery_0_bar_180deg_160x160.h"
 #include "160x160/battery_0_bar_270deg_160x160.h"
