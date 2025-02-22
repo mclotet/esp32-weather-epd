@@ -55,6 +55,9 @@ extern const char *TXT_VISIBILITY;
 extern const char *TXT_INDOOR_TEMPERATURE;
 extern const char *TXT_INDOOR_HUMIDITY;
 
+// DHW
+extern const char *TXT_DHW_TEMP;
+
 // UV INDEX
 extern const char *TXT_UV_LOW;
 extern const char *TXT_UV_MODERATE;

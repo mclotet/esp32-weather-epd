@@ -90,6 +90,9 @@ const char *TXT_VISIBILITY         = "N\xE4htavus";
 const char *TXT_INDOOR_TEMPERATURE = "Temperatuur";
 const char *TXT_INDOOR_HUMIDITY    = "\xD5huniiskus";
 
+// DHW
+const char *TXT_DHW_TEMP = "Kuum vesi";
+
 // UV INDEX
 const char *TXT_UV_LOW       = "Madal";
 const char *TXT_UV_MODERATE  = "Keskmine";

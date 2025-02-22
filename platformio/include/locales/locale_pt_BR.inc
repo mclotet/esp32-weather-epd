@@ -90,6 +90,9 @@ const char *TXT_VISIBILITY         = "Visibilidade";
 const char *TXT_INDOOR_TEMPERATURE = "Temperatura Interna";
 const char *TXT_INDOOR_HUMIDITY    = "Umidade Interna";
 
+// DHW
+const char *TXT_DHW_TEMP  = "Agua Quente";
+
 // UV INDEX
 const char *TXT_UV_LOW       = "Baixo";
 const char *TXT_UV_MODERATE  = "Moderado";

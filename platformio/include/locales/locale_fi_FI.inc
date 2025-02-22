@@ -91,6 +91,9 @@ const char *TXT_VISIBILITY         = "N\xE4kyvyys";
 const char *TXT_INDOOR_TEMPERATURE = "L\xE4mp\xF6tila";
 const char *TXT_INDOOR_HUMIDITY    = "Ilmankosteus";
 
+// DHW
+const char *TXT_DHW_TEMP = "Kuumavesi";
+
 // UV INDEX
 const char *TXT_UV_LOW       = "Matala";
 const char *TXT_UV_MODERATE  = "Kohtalainen";
