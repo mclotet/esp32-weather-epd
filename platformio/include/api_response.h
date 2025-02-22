@@ -216,9 +216,6 @@ DeserializationError deserializeOneCall(WiFiClient &json,
 DeserializationError deserializeAirQuality(WiFiClient &json,
                                            owm_resp_air_pollution_t &r);
 
-
-#endif
-
 /*
  * Domestic Hot Water data
  */
@@ -228,3 +225,5 @@ typedef struct atlantis_dhw_t
   int     minutes_left; // Estimated minutes of hot water remaining
   bool    available; // True if hot water data is valid, false otherwise
 } owm_dhw_t;
+
+#endif

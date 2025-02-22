@@ -290,3 +290,83 @@ void printHeapUsage() {
   return;
 }
 
+
+#ifdef USE_HTTP
+int getAtlantisDHW(WiFiClient &client, owm_dhw_t &dhw)
+#else
+int getAtlantisDHW(WiFiClientSecure &client, owm_dhw_t &dhw)
+#endif
+{
+  int attempts = 0;
+  bool rxSuccess = false;
+  DeserializationError jsonErr = {};
+  int httpResponse = 0;
+
+  // Initialize dhw struct as not available
+  dhw.temperature = NAN;
+  dhw.minutes_left = 0;
+  dhw.available = false;
+
+  String uri = ATLANTIS_DHW_ENDPOINT;
+  // Censored URI
+  String sanitizedUri = ATLANTIS_ENDPOINT + uri;
+
+  Serial.print(TXT_ATTEMPTING_HTTP_REQ);
+  Serial.println(": " + sanitizedUri);
+
+  while (!rxSuccess && attempts < 3)
+  {
+    wl_status_t connection_status = WiFi.status();
+    if (connection_status != WL_CONNECTED)
+    {
+      // -512 offset distinguishes these errors from httpClient errors
+      return -512 - static_cast<int>(connection_status);
+    }
+
+    HTTPClient http;
+    http.setConnectTimeout(HTTP_CLIENT_TCP_TIMEOUT); // default 5000ms
+    http.setTimeout(HTTP_CLIENT_TCP_TIMEOUT); // default 5000ms
+    http.begin(client, ATLANTIS_ENDPOINT, ATLANTIS_PORT, uri);
+    httpResponse = http.GET();
+
+    if (httpResponse == HTTP_CODE_OK)
+    {
+      DynamicJsonDocument doc(1024); // Adjust size as needed.  Start small and increase as needed.
+      jsonErr = deserializeJson(doc, http.getStream());
+
+      if (jsonErr)
+      {
+        // -256 offset distinguishes these errors from httpClient errors
+        httpResponse = -256 - static_cast<int>(jsonErr.code());
+        Serial.print(F("deserializeJson() failed: "));
+        Serial.println(jsonErr.c_str());
+      }
+      else
+      {
+        if (doc.containsKey("temperature") && doc.containsKey("minutes_left"))
+        {
+          dhw.temperature = doc["temperature"].as<float>();
+          dhw.minutes_left = doc["minutes_left"].as<int>();
+          dhw.available = true;
+          rxSuccess = true;
+        }
+        else
+        {
+          Serial.println("JSON missing 'temperature' or 'minutes_left'");
+        }
+      }
+    }
+    else
+    {
+      Serial.printf("HTTP GET failed, error: %s\n", http.errorToString(httpResponse).c_str());
+    }
+
+    http.end();
+    client.stop();
+    Serial.println("  " + String(httpResponse, DEC) + " "
+                   + getHttpResponsePhrase(httpResponse));
+    ++attempts;
+  }
+
+  return httpResponse;
+} // getAtlantisDHW
