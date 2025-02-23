@@ -265,6 +265,7 @@ void powerOffDisplay()
 void drawCurrentConditions(const owm_current_t &current,
                            const owm_daily_t &today,
                            const owm_resp_air_pollution_t &owm_air_pollution,
+                           const atlantis_dhw_t  &atlantis_dhw,
                            float inTemp, float inHumidity)
 {
   String dataStr, unitStr;
@@ -612,36 +613,10 @@ void drawCurrentConditions(const owm_current_t &current,
              unitStr, LEFT);
 
 #ifndef DISP_BW_V1
-  // visibility
+  // DHW Temperature
   display.setFont(&FONT_12pt8b);
-#ifdef UNITS_DIST_KILOMETERS
-  float vis = meters_to_kilometers(current.visibility);
-  unitStr = String(" ") + TXT_UNITS_DIST_KILOMETERS;
-#endif
-#ifdef UNITS_DIST_MILES
-  float vis = meters_to_miles(current.visibility);
-  unitStr = String(" ") + TXT_UNITS_DIST_MILES;
-#endif
-  // if visibility is less than 1.95, round to 1 decimal place
-  // else round to int
-  if (vis < 1.95)
-  {
-    dataStr = String(std::round(10 * vis) / 10.0, 1);
-  }
-  else
-  {
-    dataStr = String(static_cast<int>(std::round(vis)));
-  }
-#ifdef UNITS_DIST_KILOMETERS
-  if (vis >= 10)
-  {
-#endif
-#ifdef UNITS_DIST_MILES
-  if (vis >= 6)
-  {
-#endif
-    dataStr = "> " + dataStr;
-  }
+  unitStr = String(" ") + TXT_UNITS_TEMP_CELSIUS;
+  dataStr = String(static_cast<int>(std::round(atlantis_dhw.temp)));
   drawString(170 + 48, 204 + 17 / 2 + (48 + 8) * 3 + 48 / 2, dataStr, LEFT);
   display.setFont(&FONT_8pt8b);
   drawString(display.getCursorX(), 204 + 17 / 2 + (48 + 8) * 3 + 48 / 2,
