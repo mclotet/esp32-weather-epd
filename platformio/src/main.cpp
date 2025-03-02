@@ -40,7 +40,7 @@
 // too large to allocate locally on stack
 static owm_resp_onecall_t       owm_onecall;
 static owm_resp_air_pollution_t owm_air_pollution;
-static atlantis_dhw_t           dhw;
+static atlantis_dhw_t           atlantis_dhw;
 
 Preferences prefs;
 
