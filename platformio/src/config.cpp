@@ -48,6 +48,36 @@ const char *WIFI_SSID     = "ssid";
 const char *WIFI_PASSWORD = "password";
 const unsigned long WIFI_TIMEOUT = 10000; // ms, WiFi connection timeout.
 
+/**
+ * Base URL for the Atlantis API.
+ *
+ * This defines the host address of your Atlantis API server.
+ * It should include the protocol (e.g., "http://" or "https://") and
+ * the domain name or IP address.  Do *not* include a trailing slash.
+ *
+ */
+const String ATLANTIS_ENDPOINT = "http://raspberrypi5.local";
+
+/**
+ * Port number for the Atlantis API.
+ *
+ * This defines the port number on which the Atlantis API server is listening.
+ * Common values are 80 for HTTP and 443 for HTTPS.
+ *
+ */
+const unsigned ATLANTIS_PORT = 80; // or 443 if HTTPS
+
+/**
+ * Endpoint for retrieving DHW (Domestic Hot Water) data.
+ *
+ * This defines the path to the specific API endpoint that provides
+ * the hot water temperature and remaining minutes of hot water.
+ * This path is *relative* to the `ATLANTIS_ENDPOINT`.  It *must*
+ * include a leading slash.
+ *
+ */
+const String ATLANTIS_DHW_ENDPOINT = "/dhw";
+
 // HTTP
 // The following errors are likely the result of insuffient http client tcp 
 // timeout:
