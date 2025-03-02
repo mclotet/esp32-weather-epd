@@ -636,7 +636,6 @@ void drawCurrentConditions(const owm_current_t &current,
   dataStr += "\260";
 #endif
   drawString(48, 204 + 17 / 2 + (48 + 8) * 4 + 48 / 2, dataStr, LEFT);
-#endif
 
   // indoor humidity
   display.setFont(&FONT_12pt8b);

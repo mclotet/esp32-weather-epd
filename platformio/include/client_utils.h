@@ -34,11 +34,11 @@ bool printLocalTime(tm *timeInfo);
 #ifdef USE_HTTP
   int getOWMonecall(WiFiClient &client, owm_resp_onecall_t &r);
   int getOWMairpollution(WiFiClient &client, owm_resp_air_pollution_t &r);
-  int getAtlantisDHW(WiFiClient &client, atlantis_dhw_t &dhw)
+  int getAtlantisDHW(WiFiClient &client, atlantis_dhw_t &dhw);
 #else
   int getOWMonecall(WiFiClientSecure &client, owm_resp_onecall_t &r);
   int getOWMairpollution(WiFiClientSecure &client, owm_resp_air_pollution_t &r);
-  int getAtlantisDHW(WiFiClientSecure &client, atlantis_dhw_t &dhw)
+  int getAtlantisDHW(WiFiClientSecure &client, atlantis_dhw_t &dhw);
 #endif
 
 #endif
