@@ -635,8 +635,8 @@ void drawCurrentConditions(const owm_current_t &current,
 #if defined(UNITS_TEMP_CELSIUS) || defined(UNITS_TEMP_FAHRENHEIT)
   dataStr += "\260";
 #endif
-  drawString(48, 204 + 17 / 2 + (48 + 8) * 4 + 48 / 2, dataStr, LEFT);
-
+  drawString(170 + 48, 204 + 17 / 2 + (48 + 8) * 3 + 48 / 2, dataStr, LEFT);
+  
   // indoor humidity
   display.setFont(&FONT_12pt8b);
   if (!std::isnan(inHumidity))
