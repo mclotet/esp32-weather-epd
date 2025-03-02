@@ -292,9 +292,9 @@ void printHeapUsage() {
 
 
 #ifdef USE_HTTP
-int getAtlantisDHW(WiFiClient &client, owm_dhw_t &dhw)
+int getAtlantisDHW(WiFiClient &client, atlantis_dhw_t &dhw)
 #else
-int getAtlantisDHW(WiFiClientSecure &client, owm_dhw_t &dhw)
+int getAtlantisDHW(WiFiClientSecure &client, atlantis_dhw_t &dhw)
 #endif
 {
   int attempts = 0;

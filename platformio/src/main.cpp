@@ -40,6 +40,7 @@
 // too large to allocate locally on stack
 static owm_resp_onecall_t       owm_onecall;
 static owm_resp_air_pollution_t owm_air_pollution;
+static atlantis_dhw_t           dhw;
 
 Preferences prefs;
 
@@ -280,6 +281,20 @@ void setup()
     powerOffDisplay();
     beginDeepSleep(startTime, &timeInfo);
   }
+  rxStatus = getAtlantisDHW(client, atlantis_dhw);
+  if (rxStatus != HTTP_CODE_OK)
+  {
+    killWiFi();
+    statusStr = "Atlantis DHW API";
+    tmpStr = String(rxStatus, DEC) + ": " + getHttpResponsePhrase(rxStatus);
+    initDisplay();
+    do
+    {
+      drawError(wi_cloud_down_196x196, statusStr, tmpStr);
+    } while (display.nextPage());
+    powerOffDisplay();
+    beginDeepSleep(startTime, &timeInfo);
+  }  
   killWiFi(); // WiFi no longer needed
 
   // GET INDOOR TEMPERATURE AND HUMIDITY, start BME280...
@@ -328,7 +343,7 @@ void setup()
   do
   {
     drawCurrentConditions(owm_onecall.current, owm_onecall.daily[0],
-                          owm_air_pollution, inTemp, inHumidity);
+                          owm_air_pollution, atlantis_dhw, inTemp, inHumidity);
     drawOutlookGraph(owm_onecall.hourly, owm_onecall.daily, timeInfo);
     drawForecast(owm_onecall.daily, timeInfo);
     drawLocationDate(CITY_STRING, dateStr);

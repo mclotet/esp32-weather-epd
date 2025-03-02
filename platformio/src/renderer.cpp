@@ -265,6 +265,7 @@ void powerOffDisplay()
 void drawCurrentConditions(const owm_current_t &current,
                            const owm_daily_t &today,
                            const owm_resp_air_pollution_t &owm_air_pollution,
+                           const atlantis_dhw_t &dhw,
                            float inTemp, float inHumidity)
 {
   String dataStr, unitStr;
@@ -612,40 +613,30 @@ void drawCurrentConditions(const owm_current_t &current,
              unitStr, LEFT);
 
 #ifndef DISP_BW_V1
-  // visibility
+  // TODO - add hot water temperature
   display.setFont(&FONT_12pt8b);
-#ifdef UNITS_DIST_KILOMETERS
-  float vis = meters_to_kilometers(current.visibility);
-  unitStr = String(" ") + TXT_UNITS_DIST_KILOMETERS;
-#endif
-#ifdef UNITS_DIST_MILES
-  float vis = meters_to_miles(current.visibility);
-  unitStr = String(" ") + TXT_UNITS_DIST_MILES;
-#endif
-  // if visibility is less than 1.95, round to 1 decimal place
-  // else round to int
-  if (vis < 1.95)
+  if (!std::isnan(dhw.temperature))
   {
-    dataStr = String(std::round(10 * vis) / 10.0, 1);
+#ifdef UNITS_TEMP_KELVIN
+    dataStr = String(static_cast<int>(std::round(celsius_to_kelvin(dhw.temperature))));
+#endif
+#ifdef UNITS_TEMP_CELSIUS
+    dataStr = String(static_cast<int>(std::round(dhw.temperature)));
+#endif
+#ifdef UNITS_TEMP_FAHRENHEIT
+    dataStr = String(static_cast<int>(
+              std::round(celsius_to_fahrenheit(dhw.temperature))));
+#endif
   }
   else
   {
-    dataStr = String(static_cast<int>(std::round(vis)));
+    dataStr = "--";
   }
-#ifdef UNITS_DIST_KILOMETERS
-  if (vis >= 10)
-  {
+#if defined(UNITS_TEMP_CELSIUS) || defined(UNITS_TEMP_FAHRENHEIT)
+  dataStr += "\260";
 #endif
-#ifdef UNITS_DIST_MILES
-  if (vis >= 6)
-  {
+  drawString(48, 204 + 17 / 2 + (48 + 8) * 4 + 48 / 2, dataStr, LEFT);
 #endif
-    dataStr = "> " + dataStr;
-  }
-  drawString(170 + 48, 204 + 17 / 2 + (48 + 8) * 3 + 48 / 2, dataStr, LEFT);
-  display.setFont(&FONT_8pt8b);
-  drawString(display.getCursorX(), 204 + 17 / 2 + (48 + 8) * 3 + 48 / 2,
-             unitStr, LEFT);
 
   // indoor humidity
   display.setFont(&FONT_12pt8b);
