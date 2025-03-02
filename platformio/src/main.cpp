@@ -281,7 +281,10 @@ void setup()
     powerOffDisplay();
     beginDeepSleep(startTime, &timeInfo);
   }
-  rxStatus = getAtlantisDHW(client, atlantis_dhw);
+  // TODO Enable SSL
+  WiFiClient client_notsecure;
+
+  rxStatus = getAtlantisDHW(client_notsecure, atlantis_dhw);
   if (rxStatus != HTTP_CODE_OK)
   {
     killWiFi();

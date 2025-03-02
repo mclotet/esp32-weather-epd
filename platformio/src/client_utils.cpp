@@ -294,7 +294,7 @@ void printHeapUsage() {
 #ifdef USE_HTTP
 int getAtlantisDHW(WiFiClient &client, atlantis_dhw_t &dhw)
 #else
-int getAtlantisDHW(WiFiClientSecure &client, atlantis_dhw_t &dhw)
+int getAtlantisDHW(WiFiClient &client, atlantis_dhw_t &dhw)
 #endif
 {
   int attempts = 0;
@@ -320,17 +320,24 @@ int getAtlantisDHW(WiFiClientSecure &client, atlantis_dhw_t &dhw)
     if (connection_status != WL_CONNECTED)
     {
       // -512 offset distinguishes these errors from httpClient errors
+      Serial.println("[error] Not connected to WiFi");
       return -512 - static_cast<int>(connection_status);
     }
 
     HTTPClient http;
     http.setConnectTimeout(HTTP_CLIENT_TCP_TIMEOUT); // default 5000ms
     http.setTimeout(HTTP_CLIENT_TCP_TIMEOUT); // default 5000ms
-    http.begin(client, ATLANTIS_ENDPOINT, ATLANTIS_PORT, uri);
+
+    String fullUrl = ATLANTIS_ENDPOINT + ":" + String(ATLANTIS_PORT) + uri;
+    Serial.println("[debug] Connecting to: " + fullUrl);
+    http.begin(client, fullUrl);
+    Serial.println("[debug] HTTP Begin complete");
     httpResponse = http.GET();
+    Serial.println("[debug] HTTP GET returned: " + String(httpResponse));
 
     if (httpResponse == HTTP_CODE_OK)
     {
+      Serial.println("[debug] HTTP Response OK");
       DynamicJsonDocument doc(1024); // Adjust size as needed.  Start small and increase as needed.
       jsonErr = deserializeJson(doc, http.getStream());
 
@@ -358,6 +365,7 @@ int getAtlantisDHW(WiFiClientSecure &client, atlantis_dhw_t &dhw)
     }
     else
     {
+      Serial.println("[debug] HTTP Response NOT OK");
       Serial.printf("HTTP GET failed, error: %s\n", http.errorToString(httpResponse).c_str());
     }
 
